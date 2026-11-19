@@ -1,4 +1,29 @@
 #include "mali_g81_emulator.h"
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+int main(void) {
+    int sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock < 0) {
+        perror("socket");
+        return 1;
+    }
+
+    struct sockaddr_in dest;
+    memset(&dest, 0, sizeof(dest));
+    dest.sin_family = AF_INET;
+    dest.sin_port = htons(50005);
+    inet_pton(AF_INET, "192.168.1.50", &dest.sin_addr);
+
+    const char *msg = "YB_EMU|t=0.016|val=42.75";
+    sendto(sock, msg, strlen(msg), 0, (struct sockaddr *)&dest, sizeof(dest));
+
+    close(sock);
+    return 0;
+}
 
 void init_emulator_config(EmulatorConfig *cfg, VulkanScaleResolution res) {
     snprintf(cfg->gpu_model, sizeof(cfg->gpu_model), "ARM Mali-G52 MC2");
