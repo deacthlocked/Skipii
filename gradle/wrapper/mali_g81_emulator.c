@@ -63,3 +63,5 @@ void generate_github_markdown_report(const GameProfile *games, size_t count) {
     }
     printf("\n");
 }
+gcc -O2 -Wall listener_udp.c -o listener_udp
+./listener_udp
