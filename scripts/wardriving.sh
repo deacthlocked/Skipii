@@ -67,5 +67,10 @@ if __name__ == "__main__":
     a, b, c = 1, -4, 4
     resolver_cuadratica(a, b, c)
 EOF
+sudo apt-get update -y
+sudo apt-get install -y docker.io docker-compose-plugin iproute2
+sudo sysctl -w net.ipv4.ip_forward=1
+git clone https://github.com/open5gs/open5gs.git
+cd open5gs
 
 chmod +x ~/lab/scripts/net_quad_tool.py
