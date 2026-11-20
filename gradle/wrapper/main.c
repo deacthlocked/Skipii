@@ -66,3 +66,4 @@ int main(void) {
 
     return 0;
 }
+gcc -std=c11 -O2 resume_sender.c -o resume_sender_amd64
